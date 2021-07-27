@@ -1,0 +1,83 @@
+<header>
+    <div class="navbar navbar-expand-sm bg-primary navbar-dark">
+        <div class="container">
+            <a href="{% url 'index' %}" class="navbar-brand">Grup 17</a>
+            <ul class="navbar-nav mr-auto">
+                <li 
+                {% if request.path == '/'%}
+                    class="nav-item active"
+                {% else  %}
+                    class="nav-item"
+
+                {% endif %}
+                
+                >
+                    <a href="{% url 'index' %}" class="nav-link">Ana Sayfa</a>
+                </li>
+
+                <li
+                {% if 'about' in request.path %}
+                    class="nav-item active"
+                {% else  %}
+                    class="nav-item"
+
+                {% endif %}
+                
+                >
+                    <a href="{% url 'about' %}" class="nav-link">Hakkımızda</a>
+                </li>
+
+                <li 
+                {% if 'takim' in request.path %}
+                    class="nav-item active"
+                {% else  %}
+                    class="nav-item"
+
+                {% endif %}
+                >
+                    <a href="{% url 'takim' %}" class="nav-link">Takım</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}  
+                    <li 
+                    {% if 'calisan' in request.path %}
+                        class="nav-item active"
+                    {% else  %}
+                        class="nav-item"
+
+                    {% endif %}
+                    >
+                        <a href="{% url 'calisan' %}" class="nav-link">Profil</a>
+                    </li>  
+                    <li class="nav-item">
+                            <a  href="javascript:{document.getElementById('logout').submit()}" class="nav-link">({{ user.username }}) Logout</a>
+                            <form action="{% url 'logout' %}" method="POST" id="logout">
+                                {%csrf_token%}
+                                <input type="hidden">  
+                            </form>
+                    </li>  
+                {% else %}
+                    <li 
+                    {% if 'login' in request.path %} 
+                        class="nav-item active"
+                    {% else %}
+                        class="nav-item"
+                    {% endif %}
+                        >
+                    <a  href="{% url 'login' %}" class="nav-link">Login</a>
+                </li>  
+                <li 
+                    {% if 'register' in request.path %} 
+                        class="nav-item active"
+                    {% else %}
+                        class="nav-item"
+                    {% endif %}
+                >
+                <a  href="{% url 'register' %}" class="nav-link">Register</a>
+
+                {% endif %}         
+            </ul>
+        </div>
+    </div>
+</header>
